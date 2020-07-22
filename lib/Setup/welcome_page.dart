@@ -1,0 +1,62 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:home_ideator_app/Setup/signin.dart';
+import 'package:home_ideator_app/Setup/signup.dart';
+
+
+class WelcomePage extends StatefulWidget {
+  @override
+  _WelcomePageState createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home Ideator'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          new Image.asset(
+            'images/icon.png',
+            width: 90.0,
+            height:90.0,),
+          //new Padding(padding: new EdgeInsets.all(10.5)),
+          new Container(
+            alignment: Alignment.center,
+            height: 180.0,
+            width: 100,
+            child:new Column(
+              children:<Widget>[
+          new CupertinoButton(
+            color: Colors.blue,
+            onPressed: NavigatetoSignIn,
+            child: Text('Sign In'),
+          ),
+          new Padding(padding: new EdgeInsets.all(10.5)),
+          new CupertinoButton(
+            color: Colors.blue,
+            onPressed: NavigatetoSignUp,
+            child: Text('SignUp',
+            ),
+          ),
+  ]
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+
+  void NavigatetoSignIn() {
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
+  }
+
+  void NavigatetoSignUp() {
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUp()));
+  }
+}
