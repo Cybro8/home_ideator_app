@@ -21,13 +21,13 @@ class _SignUpState extends State<SignUp> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            new Padding(padding: new EdgeInsets.all(10.5)),
-            new Image.asset(
+            Padding(padding: EdgeInsets.all(10.5)),
+            Image.asset(
               'images/icon.png',
               width: 90.0,
               height:90.0,),
             TextFormField(
-              validator: (input){
+              validator: (String input){
                 if(input.isEmpty){
                   return 'Email id is invalid';
                 }
@@ -38,7 +38,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             TextFormField(
-              validator: (input){
+              validator: ( input){
                 if(input.length<6){
                   return 'Your password must be 6 character';
                 }
@@ -68,7 +68,7 @@ class _SignUpState extends State<SignUp> {
         user.sendEmailVerification();
         Navigator.of(context).pop();
         final uid = user.uid;
-        DBRef.child("$uid").child("Device1").set({
+        DBRef.child('$uid').child('Device1').set({
           'Voltage':'O',
           'Current':'O',
           'Power':'0',

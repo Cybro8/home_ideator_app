@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:home_ideator_app/auth_service.dart';
 import 'package:home_ideator_app/model/board.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -36,26 +35,23 @@ class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   DatabaseReference databaseReference;
   FirebaseAuth auth = FirebaseAuth.instance;
-
+  void inputData() async {
+    try {
+      final FirebaseUser user = await auth.currentUser();
+      String uid = user.uid;
+      databaseReference = database.reference().child('user').child('${uid}');
+      databaseReference.onChildAdded.listen(_onEntryAdded);
+      databaseReference.onChildChanged.listen(_onEntryChanged);
+    }catch(e){
+      e.print("Fine");
+    }
+  }
   @override
 
   void initState(){
     super.initState();
     board = Board("","","","","");
-
-      void inputData() async {
-        try {
-          final FirebaseUser user = await auth.currentUser();
-          String uid = user.uid;
-          databaseReference = database.reference().child('user').child('${uid}');
-          databaseReference.onChildAdded.listen(_onEntryAdded);
-          databaseReference.onChildChanged.listen(_onEntryChanged);
-        }catch(e){
-         print("Fine");
-        }
-        }
     inputData();
-
   }
 
   @override
@@ -83,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           blurRadius: 6.0,
                         ),]
                     ),
-
                     child:new Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children:<Widget>[
@@ -149,30 +144,24 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                     ],
                 ),
-
                   ),
                 );
               },
             ),
-
           ),
         ],
       ),
     );
   }
-
-
   void _onEntryAdded(Event event) {
     setState(() {
       boardMessages.add(Board.fromSnapshot(event.snapshot));
     });
   }
-
   void _onEntryChanged(Event event) {
     var oldEntry = boardMessages.singleWhere((entry) {
       return entry.key == event.snapshot.key;
     });
-
     setState(() {
       boardMessages[boardMessages.indexOf(oldEntry)] =
           Board.fromSnapshot(event.snapshot);

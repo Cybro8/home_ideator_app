@@ -4,7 +4,7 @@ import 'package:home_ideator_app/dashboard.dart';
 
 class LoginPage extends StatefulWidget{
   @override
-  State<StatefulWidget> createState() => new _LoginPageState();
+  State<StatefulWidget> createState() => _LoginPageState();
 
 }
 
@@ -22,8 +22,8 @@ class _LoginPageState extends State<LoginPage>{
        key: _formKey,
        child: Column(
          children: <Widget>[
-           new Padding(padding: new EdgeInsets.all(10.5)),
-           new Image.asset(
+           Padding(padding:EdgeInsets.all(10.5)),
+           Image.asset(
              'images/icon.png',
              width: 90.0,
              height:90.0,),
@@ -67,6 +67,7 @@ class _LoginPageState extends State<LoginPage>{
       try{
       FirebaseUser user =  (await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password)).user;
         Navigator.push(context, MaterialPageRoute(builder: (context)=> Dashboard()));
+        print(user);
       }catch(e){
         print(e.message);
       }

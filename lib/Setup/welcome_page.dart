@@ -20,24 +20,24 @@ class _WelcomePageState extends State<WelcomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          new Image.asset(
+          Image.asset(
             'images/icon.png',
             width: 90.0,
             height:90.0,),
           //new Padding(padding: new EdgeInsets.all(10.5)),
-          new Container(
+           Container(
             alignment: Alignment.center,
             height: 180.0,
             width: 100,
-            child:new Column(
+            child:Column(
               children:<Widget>[
-          new CupertinoButton(
+           CupertinoButton(
             color: Colors.blue,
             onPressed: NavigatetoSignIn,
             child: Text('Sign In'),
           ),
-          new Padding(padding: new EdgeInsets.all(10.5)),
-          new CupertinoButton(
+          Padding(padding: EdgeInsets.all(10.5)),
+                CupertinoButton(
             color: Colors.blue,
             onPressed: NavigatetoSignUp,
             child: Text('SignUp',
